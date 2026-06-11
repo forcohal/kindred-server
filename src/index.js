@@ -30,7 +30,12 @@ app.use('/api/reports', reportRoutes);
 // ─── HTTP + Socket.io ─────────────────────────────────────────────
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: '*', methods: ['GET', 'POST'] },
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true,
   pingTimeout: 30000,
   pingInterval: 10000,
 });
