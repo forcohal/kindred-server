@@ -56,3 +56,12 @@ startCleanupJobs(io);
 server.listen(PORT, () => {
   console.log(`[Kindred] Server running on port ${PORT}`);
 });
+
+// ─── Self-Ping (keep Render free tier awake) ─────────────────────
+const SELF_URL = process.env.SELF_URL || 'https://kindred-server-6xnm.onrender.com';
+
+setInterval(() => {
+  fetch(SELF_URL)
+    .then(() => console.log('[Ping] Self-ping successful — server kept alive'))
+    .catch((err) => console.error('[Ping] Self-ping failed:', err.message));
+}, 10 * 60 * 1000); // every 10 minutes
